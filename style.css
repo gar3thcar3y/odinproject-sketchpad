@@ -1,0 +1,9 @@
+.squere {
+    height: 30px;
+    width: 30px;
+    border: 1px solid black;
+}
+
+.squere:hover {
+    background-color: green;
+}
