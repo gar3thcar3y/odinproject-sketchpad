@@ -1,6 +1,10 @@
 const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
+
 
 function create_grid(num) {
     $("#container").innerHTML = ""
@@ -14,7 +18,15 @@ function create_grid(num) {
             const div = document.createElement("div")
             div.classList.add("squere")
             div.id = id
-            div.onclick = "color('" + i + "," + j + "');"
+            div.colorinfo = [getRandomInt(256), getRandomInt(256), getRandomInt(256)]
+            div.colorinfocurrent = [0, 0, 0]
+            div.onmouseover = () => {
+                div.colorinfocurrent[0] = div.colorinfo[0] + (div.colorinfo[0] - div.colorinfocurrent[0])/3
+                div.colorinfocurrent[1] = div.colorinfo[1] + (div.colorinfo[1] - div.colorinfocurrent[1])/3
+                div.colorinfocurrent[2] = div.colorinfo[2] + (div.colorinfo[2] - div.colorinfocurrent[2])/3
+                div.style.backgroundColor = "rgb(" + div.colorinfocurrent[0] + ", " + div.colorinfocurrent[1] + ", " + div.colorinfocurrent[2] + ")";
+            }
+                
             row.appendChild(div);
         }
 
@@ -30,5 +42,4 @@ function new_width() {
         width = window.prompt();
     }
     create_grid(width);
-
 }
